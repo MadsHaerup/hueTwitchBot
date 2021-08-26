@@ -4,7 +4,7 @@ const {
   randomLights,
   controlAllLights,
   controlLight,
-  AlertLights
+  alertLights,
 }=require('./hueLights');
 
 const client = new tmi.Client({
@@ -22,7 +22,6 @@ const client = new tmi.Client({
 
 client.connect().catch(console.error);
 client.on('message', (channel, tags, message, self) => {
-  // console.log(message);
   if(message.startsWith("lights on")) {
     console.log("turn the lights on")
     controlAllLights(true)
@@ -32,12 +31,12 @@ client.on('message', (channel, tags, message, self) => {
     controlAllLights(false)
   } 
   else if(message.startsWith("random lights")){
-    console.log("random lights")
+    console.log("create random lights")
     randomLights();
   }
   else if(message.startsWith("alert lights")){
-    console.log("alert lights")
-    AlertLights("lselect");
+    console.log("create alert lights")
+    alertLights();
   }
 
 });

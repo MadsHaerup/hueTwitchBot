@@ -19,23 +19,36 @@ const controlLight = async(lightId, on, hue, sat, bri, alert) =>{
   }
 }
 
-const randomLights = async () => {
-  ids.forEach((id) =>{
-    const hue = Math.floor(Math.random() * 65535) + 1;
-    const sat = Math.floor(Math.random() * 254) + 1;
-    const bri = Math.floor(Math.random() * 254) + 1;
-    controlLight(id, hue, sat, bri, true)
-  })
-}
-
 const controlAllLights = (on) => {
   ids.forEach(id => controlLight(id, on))
 }
-const AlertLights = (alert) => {
-  ids.forEach(id => controlLight(id, alert))
+
+const randomLights = async () => {
+  try {
+    ids.forEach((id) =>{
+      const hue = Math.floor(Math.random() * 65534) + 1;
+      const sat = Math.floor(Math.random() * 253) + 1;
+      const bri = Math.floor(Math.random() * 253) + 1;
+      controlLight(id, true ,hue, sat, bri)
+    })
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const alertLights =  async () => {
+  try {
+    ids.forEach((id) =>{
+      const alert = "lselect";
+      controlLight(id,true, alert)
+    })
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 
-module.exports = {controlAllLights, randomLights, controlLight, AlertLights};
+
+module.exports = {controlAllLights, randomLights, controlLight, alertLights};
 
 
